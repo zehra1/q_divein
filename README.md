@@ -8,4 +8,4 @@ Run `npm run start_local` for a dev server. Navigate to `http://localhost:4200/`
 
 ### Tired of downloading and running the code? 
 
-Check it out [here](https://questions.p1913.app.fit.ba/homepage)
+Check it out [here](https://questions.p1913.app.fit.ba)
