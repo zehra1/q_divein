@@ -1,0 +1,93 @@
+<div class="login-card" *ngIf="!registrationPage">
+    <h1>Log in</h1>
+    <form [formGroup]="loginForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="Placeholder" />
+        <mat-error *ngIf="loginEmail.invalid && (loginEmail.dirty || loginEmail.touched)">
+          <mat-error *ngIf="loginEmail.errors && loginEmail.errors?.required">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="loginEmail.errors && loginEmail.errors['invalidEmail']">
+            Email format is invalid.
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          formControlName="password"
+          type="password"
+          matInput
+          placeholder="Placeholder"
+        />
+        <mat-icon matSuffix>password</mat-icon>
+        <mat-error *ngIf="loginPassword.errors && loginPassword.errors?.required">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <p>
+      Don't have an account?
+      <span
+        (click)="handleRegistration()"
+        style="cursor: pointer; color: var(--primary)"
+        >Create one.</span
+      >
+    </p>
+    <button
+      (click)="login()"
+      mat-raised-button
+      color="primary"
+      [disabled]="loginForm.invalid"
+    >
+      Login
+    </button>
+  </div>
+  
+  <div class="login-card" *ngIf="registrationPage">
+    <h1>Registration</h1>
+    <form [formGroup]="registrationForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="Placeholder" />
+        <mat-error *ngIf="registrationEmail.invalid && (registrationEmail.dirty || registrationEmail.touched)">
+          <mat-error *ngIf="registrationEmail.errors && registrationEmail.errors?.required">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="registrationEmail.errors && registrationEmail.errors['invalidEmail']">
+            Email format is invalid.
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input formControlName="username" matInput placeholder="Placeholder" />
+        <mat-error *ngIf="registrationUsername.errors && registrationUsername.errors?.required">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          formControlName="password"
+          type="password"
+          matInput
+          placeholder="Placeholder"
+        />
+        <mat-icon matSuffix>password</mat-icon>
+        <mat-error *ngIf="registrationPassword.errors && registrationPassword.errors['minlength']">
+          Password must be at least 8 characters long.
+        </mat-error>
+        <mat-error *ngIf="registrationPassword.errors && registrationPassword.errors?.required">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <button (click)="register()" [disabled]="registrationForm.invalid" mat-raised-button color="primary">
+      Register
+    </button>
+  </div>
+  

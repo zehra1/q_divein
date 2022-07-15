@@ -1,0 +1,44 @@
+body {
+    background-color: var(--element-main);
+  }
+  
+  .example-container {
+    width: 100%;
+    min-height: 100%;
+    background-color: var(--element-main);
+  }
+  
+  mat-drawer {
+    position: fixed;
+    margin-top: 62px;
+    background-color: var(--element-main);
+  }
+  
+  mat-drawer-content {
+    padding: 24px;
+    margin: 12px;
+    background-color: var(--element-main);
+  }
+  
+  .icons-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+  
+    mat-icon {
+      cursor: pointer;
+      color: var(--icon-primary);
+  
+      &.active {
+        color: var(--primary);
+      }
+    }
+  }
+  
+  
+  @media only screen and (max-width: 600px) {
+    .mat-drawer-content {
+        margin: 0px;
+    }
+  }

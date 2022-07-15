@@ -1,0 +1,19 @@
+<ng-container *ngIf="question">
+    <div class="question">
+      <div (click)="handleQuestionClick()" style="display: flex; flex-direction: column">
+        <div style="display: flex; justify-content: space-between;">
+          <h3>{{ question.title }}</h3>
+            <div class="votes-badge" *ngIf="!showVoteBar">
+              <mat-icon class="material-icons-outline">thumbs_up_down</mat-icon>
+              {{ question.votes }}
+            </div>
+        </div>
+        <p>{{ question.body | truncate: summary ?  350 : question.body?.length}}</p>
+      </div>
+      <app-vote
+        *ngIf="showVoteBar"
+        [question]="question"
+        (updatedQuestion)="handleQuestionVotes($event)"
+      ></app-vote>
+    </div>
+  </ng-container>

@@ -1,0 +1,48 @@
+<div class="login-card">
+    <h1>Ask something</h1>
+    <form [formGroup]="questionAddForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input formControlName="title" matInput placeholder="Title" />
+        <mat-error *ngIf="title.invalid && (title.dirty || title.touched)">
+          <mat-error *ngIf="title.errors && title.errors?.required">
+            Title is required
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Question</mat-label>
+        <textarea
+          formControlName="body"
+          matInput
+          rows="15"
+          placeholder="Type question here.."
+        ></textarea>
+        <mat-error *ngIf="body.errors && body.errors?.required">
+          Question is required
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <div style="display: flex; gap: 16px">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="questionAddForm.invalid"
+      [mat-dialog-close]="questionAddForm.value"
+      cdkFocusInitial
+    >
+      Add
+    </button>
+  
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="dismiss()"
+      cdkFocusInitial
+    >
+      Cancel
+    </button>
+  </div>
+  
+  </div>
+  

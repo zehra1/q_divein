@@ -1,0 +1,29 @@
+:root {
+  --primary: #ee2633;
+}
+body.light-mode {
+  --text-primary: rgb(44, 44, 44);
+
+  --icon-primary: #727272;
+
+  --element-main: #fefefe;
+  --border-light: rgb(252, 252, 252);
+  --border-darker: rgb(222, 222, 222);
+  --border-dark: rgb(178, 178, 178);
+
+  --card-background: #ffffff;
+
+  --element-pretty: #f4f4f4;
+}
+
+body.dark-mode {
+  --text-primary: rgb(255, 255, 255);
+  --border-darker: rgb(0, 0, 0);
+  --border-dark: rgb(0, 0, 0);
+  --icon-primary: #ffffff;
+  --element-main: #040f1b;
+
+  --card-background: black;
+
+  --element-pretty: #050c15;
+}

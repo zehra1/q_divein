@@ -1,0 +1,45 @@
+<div
+class="container"
+infiniteScroll
+[infiniteScrollDistance]="2"
+[infiniteScrollThrottle]="50"
+(scrolled)="onScroll()"
+>
+<div class="questions-wrapper">
+  <div
+    class="controls"
+  >
+    <h2 style="margin: 0px">Questions</h2>
+    <mat-slide-toggle (click)="toggleOwnQuestions()" *ngIf="isLoggedIn"
+      >Show only my questions</mat-slide-toggle
+    >
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="addQuestion()"
+      [disabled]="!isLoggedIn"
+    >
+      Add question
+    </button>
+  </div>
+  <ng-container *ngFor="let question of questions">
+    <app-question [question]="question" [summary]="true"></app-question>
+  </ng-container>
+</div>
+
+<div class="questions-wrapper">
+  <h2>Hot questions 🔥</h2>
+  <ng-container *ngFor="let hotQuestion of topFiveQuestions">
+    <app-question
+      [question]="hotQuestion"
+      [showVoteBar]="false"
+    ></app-question>
+  </ng-container>
+</div>
+</div>
+<ng-container *ngIf="noData">
+<div class="no-data">
+  <mat-icon style="font-size: 36px">checklist_rtl</mat-icon>
+  <h3>You have seen it all!</h3>
+</div>
+</ng-container>

@@ -1,0 +1,19 @@
+<app-header></app-header>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <div class="icons-wrapper">
+      <mat-icon [routerLink]="['/homepage']" routerLinkActive="active">dynamic_form</mat-icon>
+      <ng-container *ngIf="!isLoggedIn; else showLogOut">
+        <mat-icon [routerLink]="['/login']" routerLinkActive="active">account_circle</mat-icon>
+      </ng-container>
+
+      <ng-template #showLogOut>
+        <mat-icon (click)="logout()" routerLinkActive="active">logout</mat-icon>
+      </ng-template>
+      
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
