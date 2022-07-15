@@ -1,17 +1,25 @@
 .spacer {
-    flex: 1 1 auto;
-  }
-  
-  mat-toolbar {
-    background-color: var(--element-main);
-    border-bottom: 1px solid var(--border-darker);
-    position: sticky;
-    top: 0;
-    z-index: 2;
-  }
-  
-  .unread-item{
-    padding: 8px 16px;
-    border-left: 3px solid rgb(144, 207, 255);
-    background-color: rgba(144, 207, 255, 0.194);
-  }
+  flex: 1 1 auto;
+}
+
+.header-title {
+  color: var(--text-primary);
+}
+
+mat-toolbar {
+  background-color: var(--element-main);
+  border-bottom: 1px solid var(--border-darker);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.unread-item {
+  padding: 8px 16px;
+  border-left: 3px solid rgb(144, 207, 255);
+  background-color: rgba(144, 207, 255, 0.194);
+}
+
+.no-notifications{
+  padding: 8px 16px
+}

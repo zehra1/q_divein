@@ -1,24 +1,23 @@
 <mat-toolbar>
-    <span class="spacer"></span>
-    <span style="color: var(--text-primary)">DiveIn</span>
-    <span class="spacer"></span>
-    <button mat-button [matMenuTriggerFor]="menu" *ngIf="isLoggedIn">
-      <mat-icon>notifications</mat-icon><span>{{unreadComments.length}}</span>
-    </button>
-    <mat-menu #menu="matMenu">
-      <p *ngIf="unreadComments.length == 0" style="padding: 8px 16px;">No new notifications</p>
-      <ng-container *ngFor="let item of unreadComments">
-        <div class="unread-item" (click)="handleNotifClick(item)">
-          <p>
-            {{ item.title }}
-          </p>
-          <p>{{ item.body | truncate: 50 }}</p>
-        </div>
-      </ng-container>
-    </mat-menu>
-    <button (click)="toggleDarkMode()" mat-icon-button>
-      <mat-icon *ngIf="!isDarkMode">dark_mode</mat-icon>
-      <mat-icon *ngIf="isDarkMode">light_mode</mat-icon>
-    </button>
-  </mat-toolbar>
-  
+  <span class="spacer"></span>
+  <span class="header-title">DiveIn</span>
+  <span class="spacer"></span>
+  <button mat-button [matMenuTriggerFor]="menu" *ngIf="isLoggedIn">
+    <mat-icon>notifications</mat-icon><span>{{unreadComments.length}}</span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <p class="no-notifications" *ngIf="unreadComments.length == 0">No new notifications</p>
+    <ng-container *ngFor="let item of unreadComments">
+      <div class="unread-item" (click)="handleNotifClick(item)">
+        <p>
+          {{ item.title }}
+        </p>
+        <p>{{ item.body | truncate: 50 }}</p>
+      </div>
+    </ng-container>
+  </mat-menu>
+  <button (click)="toggleDarkMode()" mat-icon-button>
+    <mat-icon *ngIf="!isDarkMode">dark_mode</mat-icon>
+    <mat-icon *ngIf="isDarkMode">light_mode</mat-icon>
+  </button>
+</mat-toolbar>

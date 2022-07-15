@@ -30,6 +30,9 @@
     button{
       background-color: var(--primary);
     }
+    span{
+      cursor: pointer; color: var(--primary)
+    }
   }
   
   @media only screen and (max-width: 600px) {

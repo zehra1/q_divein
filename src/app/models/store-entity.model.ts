@@ -2,6 +2,9 @@ import { BehaviorSubject, Observable, combineLatest } from 'rxjs'
 import { filter, map, share, shareReplay } from 'rxjs/operators'
 
 export class StoreEntity<T> {
+    asObservable() {
+      throw new Error('Method not implemented.')
+    }
     constructor(
         private _entityInitValue: any,
         private _loadingInitValue: boolean,

@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { StoreEntity } from '../models/store-entity.model';
 import { User } from '../models/user.model';
 import { ErrorService } from '../ui/error.service';
 import { EndpointURIs } from './service.model';
 const routes = {
   user: (id: number) => `${EndpointURIs.USER}/${id}`,
+  users: () => `${EndpointURIs.USER}`,
   login: () => `${EndpointURIs.LOGIN}`,
   register: () => `${EndpointURIs.REGISTER}`,
 };
@@ -19,6 +21,7 @@ export class AuthService {
   readonly activeUser$ = this._activeUser.asObservable();
   _isLoggedIn = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this._isLoggedIn.asObservable();
+  users = new StoreEntity<User[]>(null, true, true);
 
   get token() {
     return localStorage.getItem('token') || '';
@@ -74,7 +77,7 @@ export class AuthService {
       .subscribe();
   }
 
-  getUser(id: number){
+  getUser(id: number) {
     return this.httpClient
       .get(routes.user(id), {
         headers: this.httpOptions.headers,
@@ -84,13 +87,33 @@ export class AuthService {
           this.errorService.handleError(err);
           return of(err);
         })
+      );
+  }
+
+  getUsers() {
+    this.users.loading = true;
+    this.httpClient
+      .get(routes.users(), {
+        headers: this.httpOptions.headers,
+      })
+      .pipe(
+        tap((users: any) => {
+          this.users.data = users;
+          this.users.loading = false;
+        }),
+        catchError((err) => {
+          this.users.loading = false;
+          this.errorService.handleError(err);
+          return of(err);
+        })
       )
+      .subscribe();
   }
 
   logout() {
-    this.activeUser = null
-    this._isLoggedIn.next(false)
-    localStorage.setItem('token', '')
-    localStorage.setItem('userId', '')
+    this.activeUser = null;
+    this._isLoggedIn.next(false);
+    localStorage.setItem('token', '');
+    localStorage.setItem('userId', '');
   }
 }

@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         .pipe(
           tap((isLoggedIn) => {
             if (isLoggedIn) {
+              this.loginForm.reset()
               this.router.navigate(['/homepage']);
               try {
                 this.dialogRef?.close();
@@ -79,7 +80,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   handleRegistration() {
-    this.registrationPage = true;
+    this.loginForm.reset()
+    this.registrationForm.reset();
+    this.registrationPage = !this.registrationPage;
   }
 
   register() {

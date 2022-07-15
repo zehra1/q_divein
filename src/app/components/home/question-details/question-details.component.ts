@@ -22,7 +22,7 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
   });
   isLoggedIn: boolean;
   subscriptions: Subscription[] = [];
-
+  commentsLoading = true;
   constructor(
     private questionService: QuestionService,
     private route: ActivatedRoute,
@@ -49,8 +49,8 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  handleLogin(){
-    this.router.navigate(['/login'])
+  handleLogin() {
+    this.router.navigate(['/login']);
   }
 
   onSubmit() {
@@ -75,17 +75,25 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
   }
 
   getComments() {
+    this.authService.getUsers();
     this.subscriptions.push(
-      this.questionService
-        .getComments(this.question.id)
+      this.authService.users.data$
         .pipe(
-          map((comments: Comment[]) => {
-            comments.forEach((comment) => {
-              this.authService.getUser(comment.userId).subscribe((u) => {
-                comment.username = u.username;
-              });
-            });
-            this.comments = comments;
+          tap((users) => {
+            this.questionService
+              .getComments(this.question.id)
+              .pipe(
+                map((comments: Comment[]) => {
+                  comments.forEach((comment) => {
+                    comment.username = users.find(
+                      (u) => u.id == comment.userId
+                    )?.username;
+                  });
+                  this.comments = comments;
+                  this.commentsLoading = false;
+                })
+              )
+              .subscribe();
           })
         )
         .subscribe()

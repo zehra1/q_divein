@@ -6,6 +6,7 @@ import { Question } from 'src/app/models/question.model';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Comment } from 'src/app/models/comment.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user.model';
 
 enum VoteAction {
   UPVOTE = 'UPWOTE',
@@ -18,11 +19,26 @@ enum VoteAction {
   styleUrls: ['./question.component.scss'],
 })
 export class QuestionComponent implements OnInit {
-  @Input() question: Question;
-  @Input() showVoteBar = true
-  @Input() summary: boolean
-  eVoteAction = VoteAction;
+  @Input('question') set _question(question: Question) {
+    this.question = question;
 
+    if (this.question) {
+      this.authService.getUsers();
+      this.authService.users.data$
+        .pipe(
+          tap((users) => {
+            this.postedBy = users.find((u) => u.id == this.question?.userId);
+          })
+        )
+        .subscribe();
+    }
+  }
+  @Input() showVoteBar = true;
+  @Input() showDate = true;
+  @Input() summary: boolean;
+  eVoteAction = VoteAction;
+  question: Question;
+  postedBy: User = null;
   isLoggedIn: boolean;
 
   constructor(
@@ -31,16 +47,13 @@ export class QuestionComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
-  handleQuestionVotes(question){
+  handleQuestionVotes(question) {
     this.questionService.upvote(question);
   }
 
-  handleQuestionClick(){
-    this.router.navigate(['/homepage', this.question.id])
+  handleQuestionClick() {
+    this.router.navigate(['/homepage', this.question.id]);
   }
-
 }

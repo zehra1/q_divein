@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GuiService } from '../gui.service';
 import { tap, take } from 'rxjs/operators';
 import { Question } from 'src/app/models/question.model';
 import { QuestionService } from 'src/app/services/questions.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isDarkMode: boolean;
   unreadComments: Question[] = [];
   isLoggedIn: boolean;
@@ -66,5 +66,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/homepage', question.id]);
     this.questionService.getQuestions();
     this.questionService.updateQuestionNotification(question.id, true);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => {
+      s.unsubscribe();
+    });
   }
 }

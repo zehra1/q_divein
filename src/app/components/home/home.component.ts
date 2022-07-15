@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ownOnly = false;
   isLoggedIn: boolean;
   subscriptions: Subscription[] = [];
+  initialLoad = true;
+  isLoading: boolean;
+  topQuestionsLoading = true;
   constructor(
     private questionService: QuestionService,
     private router: Router,
@@ -35,9 +38,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         .getTopQuestions({ sort: 'votes', order: 'desc', limit: 5 })
         .pipe(
           tap((questions) => {
-            console.log(" qqq ", questions);
-            
             this.topFiveQuestions = questions;
+            this.topQuestionsLoading = false
+          })
+        )
+        .subscribe(),
+
+      this.questionService.questions.loading$
+        .pipe(
+          tap((isLoading) => {
+            this.isLoading = isLoading;
           })
         )
         .subscribe(),
@@ -54,6 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         .pipe(
           tap((questions) => {
             this.questions.push(...questions);
+            this.initialLoad = false;
           })
         )
         .subscribe(),
@@ -87,6 +98,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   toggleOwnQuestions() {
+    this.initialLoad = true;
     this.ownOnly = !this.ownOnly;
     this.questions = [];
     this.page = 0;

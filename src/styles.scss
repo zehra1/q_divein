@@ -1,21 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
-@import '/src/theme.scss';
+@import "/src/theme.scss";
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: var(--element-main);}
-
-mat-icon{
-    color: var(--icon-primary);
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--element-main);
 }
 
-.mat-dialog-container{
-    background-color: var(--element-pretty);
-  }
-  .add-question .mat-dialog-container{
-    width: 660px;
+mat-icon {
+  color: var(--icon-primary);
 }
-  
+
+.mat-dialog-container {
+  background-color: var(--element-pretty);
+}
+.add-question .mat-dialog-container {
+  width: 660px;
+}
+
+.loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+  margin-bottom: 24px;
+}
+
 @media only screen and (max-width: 600px) {
-    .add-question .mat-dialog-container{
-        width: 320px;
-    }
+  .add-question .mat-dialog-container {
+    width: 320px;
   }
+}

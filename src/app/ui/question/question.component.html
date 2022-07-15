@@ -1,19 +1,19 @@
 <ng-container *ngIf="question">
-    <div class="question">
-      <div (click)="handleQuestionClick()" style="display: flex; flex-direction: column">
-        <div style="display: flex; justify-content: space-between;">
+  <div class="question">
+    <div (click)="handleQuestionClick()" class="question-container">
+      <div class="question-header">
+        <div>
           <h3>{{ question.title }}</h3>
-            <div class="votes-badge" *ngIf="!showVoteBar">
-              <mat-icon class="material-icons-outline">thumbs_up_down</mat-icon>
-              {{ question.votes }}
-            </div>
+          <span>Posted by {{ postedBy?.username }}</span>
         </div>
-        <p>{{ question.body | truncate: summary ?  350 : question.body?.length}}</p>
+        <span *ngIf="showDate">{{ question.createdAt | date: 'dd MMM yyyy HH:mm'}}</span>
+        <div class="votes-badge" *ngIf="!showVoteBar">
+          <mat-icon class="material-icons-outline">thumbs_up_down</mat-icon>
+          {{ question.votes }}
+        </div>
       </div>
-      <app-vote
-        *ngIf="showVoteBar"
-        [question]="question"
-        (updatedQuestion)="handleQuestionVotes($event)"
-      ></app-vote>
+      <p>{{ question.body | truncate: summary ? 350 : question.body?.length}}</p>
     </div>
-  </ng-container>
+    <app-vote *ngIf="showVoteBar" [question]="question" (updatedQuestion)="handleQuestionVotes($event)"></app-vote>
+  </div>
+</ng-container>

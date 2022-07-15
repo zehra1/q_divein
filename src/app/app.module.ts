@@ -15,7 +15,6 @@ import { QuestionComponent } from './ui/question/question.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VoteComponent } from './ui/vote/vote.component';
 import { QuestionDetailsComponent } from './components/home/question-details/question-details.component';
-import { CommentsComponent } from './components/home/question-details/comments/comments.component';
 import { QuestionAddComponent } from './components/home/question-add/question-add.component';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { QuestionAddComponent } from './components/home/question-add/question-ad
     QuestionComponent,
     VoteComponent,
     QuestionDetailsComponent,
-    CommentsComponent,
     QuestionAddComponent,
   ],
   imports: [
@@ -38,13 +36,15 @@ import { QuestionAddComponent } from './components/home/question-add/question-ad
     MaterialModule,
     LoginModule,
     BrowserAnimationsModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
   ],
-  providers: [{
-    provide:HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

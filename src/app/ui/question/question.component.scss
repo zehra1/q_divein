@@ -1,46 +1,78 @@
 .question {
-    border-radius: 8px;
-    border: 1px solid var(--border-darker);
-    padding: 16px;
-    transition: 0.3s;
-    background-color: var(--card-background);
-    color: var(--text-primary);
-    
-    .votes-badge{
-      display: flex;
-      gap: 4px;
-      line-height: 2;
-      background: var(--element-pretty);
-      height: max-content;
-      padding: 0px 8px;
-      border-radius: 16px;
-      align-items: center;
-  
-      mat-icon{
-        line-height: 1.6;
-        font-size: 16px;
-      }
-    }
-    &:hover {
-      border: 1px solid var(--border-dark);
-      transition: 0.3s;
-      cursor: pointer;
-    }
-  
-    @keyframes nudge {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.5);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-  
-    mat-icon:active {
-      animation-name: nudge;
-      animation-duration: 1s;
+  border-radius: 8px;
+  border: 1px solid var(--border-darker);
+  padding: 16px;
+  transition: 0.3s;
+  background-color: var(--card-background);
+  color: var(--text-primary);
+
+  .votes-badge {
+    display: flex;
+    gap: 4px;
+    line-height: 2;
+    background: var(--element-pretty);
+    height: max-content;
+    padding: 0px 8px;
+    border-radius: 16px;
+    align-items: center;
+
+    mat-icon {
+      line-height: 1.6;
+      font-size: 16px;
     }
   }
+  &:hover {
+    border: 1px solid var(--border-dark);
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  @keyframes nudge {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  mat-icon:active {
+    animation-name: nudge;
+    animation-duration: 1s;
+  }
+}
+
+.question-container {
+  display: flex;
+  flex-direction: column;
+  p {
+    margin-top: 24px;
+  }
+  .question-header {
+    display: flex;
+    justify-content: space-between;
+    span {
+      color: var(--text-secondary);
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      span {
+        color: var(--text-secondary);
+      }
+    }
+
+    .votes-badge {
+      flex-direction: row;
+    }
+  }
+}
